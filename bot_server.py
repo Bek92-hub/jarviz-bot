@@ -16,7 +16,7 @@ GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "SIZNING_HAQIQIY_GEMINI_API_KA
 genai.configure(api_key=GEMINI_API_KEY)
 
 # Hozirgi kunda eng barqaror ishlaydigan model
-model = genai.GenerativeModel("gemini-1.5-pro")
+model = genai.GenerativeModel("gemini-pro")
 
 def log_to_sheets(user_id, user_name, event_type, message_text, status):
     try:
