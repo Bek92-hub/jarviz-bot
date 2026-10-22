@@ -28,13 +28,14 @@ def webhook():
                 file_path = file_response["result"]["file_path"]
                 image_url = f"https://api.telegram.org/file/bot{TOKEN}/{file_path}"
                 
-                # Rasmni binar korpusda yuklab olamiz va tahlilga tayyorlaymiz
+                # Rasmni binar korpusda yuklab olamiz va veb-most uchun tayyorlaymiz
                 img_data = requests.get(image_url).content
                 
-                print(f"ANALYSIS_READY_IMAGE: {len(img_data)} bytes | URL: {image_url}")
+                # Render loglarida ko'rinishi uchun aniq belgi
+                print(f"WEB_BRIDGE_IMAGE_RECEIVED: {len(img_data)} bytes | URL: {image_url}")
                 
-                # Foydalanuvchiga bot orqali javob yuboramiz
-                send_message(chat_id, f"🔍 Rasm qabul qilindi va tahlilga jo'natildi! Hajmi: {len(img_data)} bayt.")
+                # Foydalanuvchiga bot orqali xabar beramiz
+                send_message(chat_id, f"🔍 Rasm muvaffaqiyatli qabul qilindi va veb-most orqali qayta ishlandi! Hajmi: {len(img_data)} bayt.")
         
         elif "text" in message:
             text = message["text"]
