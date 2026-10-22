@@ -20,7 +20,7 @@ def webhook():
             photo = message["photo"][-1]
             file_id = photo["file_id"]
             
-            # Telegram serveridan rasmning to'g'ridan-to'g'ri manzilini olamiz
+            # Telegram serveridan rasm yo'lini olamiz
             file_info_url = f"{TELEGRAM_API_URL}/getFile?file_id={file_id}"
             file_response = requests.get(file_info_url).json()
             
@@ -28,9 +28,13 @@ def webhook():
                 file_path = file_response["result"]["file_path"]
                 image_url = f"https://api.telegram.org/file/bot{TOKEN}/{file_path}"
                 
-                # Bu yerda rasm manzili ushlandi va tizimga uzatildi
-                print(f"IMAGE_URL_READY: {image_url}")
-                send_message(chat_id, "📷 Rasm qabul qilindi, xo'jayin! Tahlil qilish uchun yuborildi.")
+                # Rasm faylini to'g'ridan-to'g'ri internetdan yuklab olamiz (xotirada ushlab turamiz)
+                img_data = requests.get(image_url).content
+                
+                # Bu yerda rasm ma'lumotlari to'liq qo'lga kiritildi va tahlil uchun tayyor!
+                print(f"IMAGE_BYTES_READY: Size {len(img_data)} bytes from {image_url}")
+                
+                send_message(chat_id, "🔍 Rasm muvaffaqiyatli qabul qilindi va tahlilga jo'natildi, xo'jayin!")
         
         elif "text" in message:
             text = message["text"]
