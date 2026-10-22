@@ -29,7 +29,7 @@ def webhook():
                 image_url = f"https://api.telegram.org/file/bot{TOKEN}/{file_path}"
                 
                 # Bu yerda rasm manzili ushlandi va tizimga uzatildi
-                print(IMAGE_URL_READY: {image_url})
+                print(f"IMAGE_URL_READY: {image_url}")
                 send_message(chat_id, "📷 Rasm qabul qilindi, xo'jayin! Tahlil qilish uchun yuborildi.")
         
         elif "text" in message:
