@@ -14,7 +14,7 @@ TELEGRAM_API_URL = f"https://api.telegram.org/bot{TOKEN}"
 # Gemini API kalitingizni shu yerga yozing (yoki Render Environment variables'ga qo'shing)
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "SIZNING_HAQIQIY_GEMINI_API_KALITINGIZ")
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel("gemini-1.5-flash")
+model = genai.GenerativeModel("gemini-2.5-flash")
 
 def log_to_sheets(user_id, user_name, event_type, message_text, status):
     try:
