@@ -11,10 +11,12 @@ app = Flask(__name__)
 TOKEN = "8683823927:AAHYst9wLW4yH0ToGKZZWRcMcgqRsvvitCU"
 TELEGRAM_API_URL = f"https://api.telegram.org/bot{TOKEN}"
 
-# Gemini API kalitingizni shu yerga yozing (yoki Render Environment variables'ga qo'shing)
+# Gemini API kalitingiz (Render Environment variables'ga qo'shgan bo'lsangiz avtomatik oladi)
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "SIZNING_HAQIQIY_GEMINI_API_KALITINGIZ")
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel("gemini-pro")
+
+# Hozirgi kunda eng barqaror ishlaydigan model
+model = genai.GenerativeModel("gemini-1.5-pro")
 
 def log_to_sheets(user_id, user_name, event_type, message_text, status):
     try:
@@ -42,6 +44,7 @@ def webhook():
         
         bot_response = "Tushunarli."
 
+        # Rasm yuborilganda
         if "photo" in message:
             photo = message["photo"][-1]
             file_id = photo["file_id"]
@@ -65,6 +68,7 @@ def webhook():
                 log_to_sheets(user_id, user_name, "Rasm tahlili", bot_response[:200], "Muvaffaqiyatli")
                 os.remove(temp_img_path)
 
+        # Matn yuborilganda
         elif "text" in message:
             text = message["text"]
             
